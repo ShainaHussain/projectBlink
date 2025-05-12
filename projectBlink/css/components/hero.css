@@ -1,0 +1,229 @@
+/* Hero Section Styles */
+.hero {
+  position: relative;
+  min-height: 80vh;
+  background-image: url('https://images.pexels.com/photos/5872348/pexels-photo-5872348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(10, 37, 64, 0.8) 0%, rgba(10, 37, 64, 0.4) 100%);
+}
+
+.hero-content {
+  position: relative;
+  color: white;
+  max-width: 600px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero-content h1 {
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: var(--space-3);
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-4);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Featured Categories */
+.featured-categories {
+  background-color: var(--color-background-alt);
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.category-card {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--box-shadow-sm);
+  transition: var(--transition);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-md);
+}
+
+.category-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.category-card:hover .category-image img {
+  transform: scale(1.05);
+}
+
+.category-card h3 {
+  padding: var(--space-3);
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* Featured Products */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+/* Promo Banner */
+.promo-banner {
+  background-image: url('https://images.pexels.com/photos/5705490/pexels-photo-5705490.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(249, 115, 22, 0.8) 0%, rgba(249, 115, 22, 0.4) 100%);
+}
+
+.promo-content {
+  position: relative;
+  color: white;
+  text-align: center;
+  padding: var(--space-6) 0;
+}
+
+.promo-content h2 {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: var(--space-2);
+}
+
+.promo-content p {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-4);
+}
+
+/* Newsletter */
+.newsletter {
+  background-color: var(--color-background-alt);
+}
+
+.newsletter-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.newsletter-form {
+  display: flex;
+  margin-top: var(--space-4);
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+  outline: none;
+}
+
+.newsletter-form button {
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+}
+
+.form-message {
+  margin-top: var(--space-2);
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .categories-grid,
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    margin-top: 70px;
+    min-height: 60vh;
+  }
+  
+  .categories-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-content p,
+  .promo-content p {
+    font-size: 1rem;
+  }
+  
+  .promo-content h2 {
+    font-size: 1.75rem;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .newsletter-form input {
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--space-2);
+  }
+  
+  .newsletter-form button {
+    border-radius: var(--border-radius-md);
+  }
+}
+
+@media (max-width: 576px) {
+  .categories-grid,
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}

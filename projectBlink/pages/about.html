@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn more about Premium Store and our commitment to quality products.">
+  <meta name="keywords" content="about, company, mission, values, team">
+  <meta property="og:title" content="About Us | Premium Store">
+  <meta property="og:description" content="Learn more about Premium Store and our commitment to quality products.">
+  <meta property="og:image" content="https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+  <meta property="og:url" content="https://premium-store.com/about">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <title>About Us | Blink Store</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <style>
+    /* About Page Styles */
+    .about-page {
+      padding-top: 120px;
+      padding-bottom: var(--space-6);
+    }
+    
+    .about-hero {
+      background-image: url('https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+      background-size: cover;
+      background-position: center;
+      padding: var(--space-8) 0;
+      position: relative;
+      color: white;
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+    
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(10, 37, 64, 0.8), rgba(10, 37, 64, 0.6));
+    }
+    
+    .about-hero-content {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .about-hero h1 {
+      color: white;
+      font-size: 3rem;
+      margin-bottom: var(--space-3);
+    }
+    
+    .about-hero p {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+      opacity: 0.9;
+    }
+    
+    .mission-section {
+      margin-bottom: var(--space-6);
+    }
+    
+    .mission-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+      align-items: center;
+    }
+    
+    .mission-image {
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      box-shadow: var(--box-shadow-md);
+    }
+    
+    .mission-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .mission-text h2 {
+      margin-bottom: var(--space-3);
+    }
+    
+    .mission-text p {
+      margin-bottom: var(--space-3);
+    }
+    
+    .values-section {
+      background-color: var(--color-background-alt);
+      padding: var(--space-6) 0;
+      margin-bottom: var(--space-6);
+    }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      margin-top: var(--space-5);
+    }
+    
+    .value-card {
+      background-color: white;
+      padding: var(--space-4);
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--box-shadow-sm);
+      text-align: center;
+      transition: var(--transition);
+    }
+    
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--box-shadow-md);
+    }
+    
+    .value-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-background-alt);
+      border-radius: 50%;
+      color: var(--color-primary);
+    }
+    
+    .value-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .team-section {
+      margin-bottom: var(--space-6);
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      margin-top: var(--space-5);
+    }
+    
+    .team-member {
+      text-align: center;
+    }
+    
+    .team-member-image {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: var(--space-3);
+    }
+    
+    .team-member-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .team-member-name {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-1);
+    }
+    
+    .team-member-title {
+      color: var(--color-text-light);
+      margin-bottom: var(--space-2);
+    }
+    
+    .team-member-social {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+    
+    .team-member-social a {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-background-alt);
+      border-radius: 50%;
+      color: var(--color-text);
+      transition: var(--transition);
+    }
+    
+    .team-member-social a:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    
+    .cta-section {
+      background-color: var(--color-primary);
+      color: white;
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+    
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cta-section h2 {
+      color: white;
+      margin-bottom: var(--space-3);
+    }
+    
+    .cta-section p {
+      margin-bottom: var(--space-4);
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 992px) {
+      .mission-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .mission-image {
+        order: -1;
+        margin-bottom: var(--space-4);
+      }
+      
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .about-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .values-grid,
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container header-container">
+      <div class="header-logo">
+        <a href="../index.html" aria-label="Premium Store Home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>Blink Store</span>
+        </a>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" id="search-toggle" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <a href="cart.html" class="btn-icon cart-icon" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-overlay" id="search-overlay">
+      <div class="container">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search for products..." aria-label="Search for products">
+          <button class="btn-icon" id="search-close" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="header-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Blink Store</span>
+          </a>
+        </div>
+        <button class="btn-icon" id="mobile-menu-close" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about-page">
+    <section class="about-hero">
+      <div class="container">
+        <div class="about-hero-content">
+          <h1>About Blink Store</h1>
+          <p>We're passionate about providing premium quality products that enhance your everyday life.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="mission-section">
+      <div class="container">
+        <div class="mission-content">
+          <div class="mission-text">
+            <h2>Our Mission</h2>
+            <p>
+              At Blink Store, our mission is to provide customers with exceptional products that combine quality, functionality, and beautiful design. We believe that the items you use every day should bring joy and make your life better.
+            </p>
+            <p>
+              Founded in 2020, Premium Store has grown from a small online boutique to a trusted destination for discerning customers who value craftsmanship and attention to detail. We carefully select each product in our catalog, ensuring it meets our high standards.
+            </p>
+            <p>
+              We're committed to responsible business practices, including ethical sourcing, sustainable packaging, and giving back to the communities we serve.
+            </p>
+          </div>
+          
+          <div class="mission-image">
+            <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Our mission">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="values-section">
+      <div class="container">
+        <h2 class="section-title">Our Values</h2>
+        
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <h3 class="value-title">Quality</h3>
+            <p>We never compromise on quality. Every product we offer is carefully selected and tested to ensure it meets our high standards.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+            <h3 class="value-title">Customer Care</h3>
+            <p>Our customers are at the heart of everything we do. We strive to provide exceptional service and support at every step.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="value-title">Trust</h3>
+            <p>We build trust through transparency, honest communication, and standing behind every product we sell.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <h3 class="value-title">Sustainability</h3>
+            <p>We're committed to minimizing our environmental impact through sustainable sourcing, eco-friendly packaging, and responsible business practices.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+            </div>
+            <h3 class="value-title">Innovation</h3>
+            <p>We constantly seek out innovative products and solutions that improve everyday experiences and solve common problems.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <h3 class="value-title">Community</h3>
+            <p>We believe in giving back to the communities where we operate, supporting local initiatives and charitable causes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="team-section">
+      <div class="container">
+        <h2 class="section-title">Meet Our Team</h2>
+        
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="team-member-image">
+              <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sarah Johnson">
+            </div>
+            <h3 class="team-member-name">Sarah Johnson</h3>
+            <div class="team-member-title">Founder & CEO</div>
+            <div class="team-member-social">
+              <a href="#" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="#" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="team-member">
+            <div class="team-member-image">
+              <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Michael Chen">
+            </div>
+            <h3 class="team-member-name">Michael Chen</h3>
+            <div class="team-member-title">Head of Product</div>
+            <div class="team-member-social">
+              <a href="#" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="#" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="team-member">
+            <div class="team-member-image">
+              <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Emily Rodriguez">
+            </div>
+            <h3 class="team-member-name">Emily Rodriguez</h3>
+            <div class="team-member-title">Design Director</div>
+            <div class="team-member-social">
+              <a href="#" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="#" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="team-member">
+            <div class="team-member-image">
+              <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="David Wilson">
+            </div>
+            <h3 class="team-member-name">David Wilson</h3>
+            <div class="team-member-title">Customer Experience</div>
+            <div class="team-member-social">
+              <a href="#" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="#" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Join Our Journey</h2>
+          <p>
+            We're constantly growing and looking for passionate individuals to join our team.
+            If you're excited about our mission and values, we'd love to hear from you.
+          </p>
+          <a href="careers.html" class="btn btn-secondary">View Careers</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Blink Store</span>
+          </a>
+          <p>Premium quality products for your everyday needs.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="products.html?category=electronics">Electronics</a></li>
+              <li><a href="products.html?category=fashion">Fashion</a></li>
+              <li><a href="products.html?category=home">Home</a></li>
+              <li><a href="products.html?category=beauty">Beauty</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="shipping.html">Shipping & Returns</a></li>
+              <li><a href="warranty.html">Warranty</a></li>
+              <li><a href="payment.html">Payment Methods</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Premium Store. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/components/header.js"></script>
+  <script src="../js/components/cart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeHeader();
+    });
+  </script>
+</body>
+</html>

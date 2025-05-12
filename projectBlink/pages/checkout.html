@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Checkout and complete your purchase securely.">
+  <meta name="keywords" content="checkout, payment, order, shipping">
+  <meta property="og:title" content="Checkout | Premium Store">
+  <meta property="og:description" content="Checkout and complete your purchase securely.">
+  <meta property="og:image" content="https://images.pexels.com/photos/5872348/pexels-photo-5872348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+  <meta property="og:url" content="https://premium-store.com/checkout">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <title>Checkout | Premium Store</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <style>
+    /* Checkout Page Styles */
+    .checkout-page {
+      padding-top: 120px;
+      padding-bottom: var(--space-6);
+    }
+    
+    .checkout-header {
+      margin-bottom: var(--space-5);
+    }
+    
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: var(--space-5);
+    }
+    
+    .checkout-form-container {
+      background-color: white;
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--box-shadow-sm);
+      padding: var(--space-4);
+    }
+    
+    .checkout-summary {
+      background-color: var(--color-background-alt);
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--box-shadow-sm);
+      padding: var(--space-4);
+      align-self: start;
+      position: sticky;
+      top: 100px;
+    }
+    
+    .checkout-steps {
+      display: flex;
+      margin-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .checkout-step {
+      flex: 1;
+      text-align: center;
+      padding: var(--space-2) var(--space-1);
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .checkout-step::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primary);
+      transition: var(--transition);
+    }
+    
+    .checkout-step.active {
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+    
+    .checkout-step.active::after {
+      width: 100%;
+    }
+    
+    .checkout-step.completed::before {
+      content: '✓';
+      display: inline-block;
+      margin-right: var(--space-1);
+      color: var(--color-success);
+    }
+    
+    .step-content {
+      display: none;
+    }
+    
+    .step-content.active {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: var(--space-3);
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: var(--space-1);
+      font-weight: 500;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: var(--space-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-sm);
+      outline: none;
+      transition: var(--transition);
+    }
+    
+    .form-input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(10, 37, 64, 0.1);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+    }
+    
+    .form-row-3 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-3);
+    }
+    
+    .order-summary-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-3);
+    }
+    
+    .order-summary-items {
+      margin-bottom: var(--space-4);
+    }
+    
+    .order-item {
+      display: flex;
+      margin-bottom: var(--space-2);
+    }
+    
+    .order-item-image {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--border-radius-sm);
+      overflow: hidden;
+      margin-right: var(--space-2);
+    }
+    
+    .order-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .order-item-details {
+      flex: 1;
+    }
+    
+    .order-item-title {
+      font-weight: 500;
+      margin-bottom: var(--space-1);
+      font-size: 0.875rem;
+    }
+    
+    .order-item-price {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .order-item-quantity {
+      font-size: 0.875rem;
+      color: var(--color-text-lighter);
+    }
+    
+    .order-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+    
+    .order-summary-label {
+      color: var(--color-text-light);
+    }
+    
+    .order-summary-total {
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .checkout-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-4);
+    }
+    
+    /* Payment method styles */
+    .payment-methods {
+      margin-bottom: var(--space-3);
+    }
+    
+    .payment-method {
+      display: flex;
+      align-items: center;
+      padding: var(--space-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-sm);
+      margin-bottom: var(--space-2);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .payment-method:hover {
+      border-color: var(--color-primary);
+    }
+    
+    .payment-method.active {
+      border-color: var(--color-primary);
+      background-color: rgba(10, 37, 64, 0.05);
+    }
+    
+    .payment-method-radio {
+      margin-right: var(--space-2);
+    }
+    
+    .payment-method-info {
+      flex: 1;
+    }
+    
+    .payment-method-title {
+      font-weight: 500;
+      margin-bottom: var(--space-1);
+    }
+    
+    .payment-method-description {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .payment-method-icons {
+      display: flex;
+      gap: var(--space-1);
+    }
+    
+    .payment-method-icon {
+      width: 32px;
+      height: 20px;
+      background-color: var(--color-background-alt);
+      border-radius: var(--border-radius-sm);
+    }
+    
+    @media (max-width: 992px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .checkout-summary {
+        position: static;
+        order: -1;
+        margin-bottom: var(--space-4);
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .form-row, .form-row-3 {
+        grid-template-columns: 1fr;
+      }
+      
+      .checkout-steps {
+        flex-direction: column;
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+      
+      .checkout-step {
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+      
+      .checkout-actions {
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      
+      .checkout-actions button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container header-container">
+      <div class="header-logo">
+        <a href="../index.html" aria-label="Premium Store Home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>Premium Store</span>
+        </a>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" id="search-toggle" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <a href="cart.html" class="btn-icon cart-icon" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-overlay" id="search-overlay">
+      <div class="container">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search for products..." aria-label="Search for products">
+          <button class="btn-icon" id="search-close" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="header-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+        </div>
+        <button class="btn-icon" id="mobile-menu-close" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="checkout-page">
+    <div class="container">
+      <div class="checkout-header">
+        <h1 class="page-title">Checkout</h1>
+      </div>
+      
+      <div class="checkout-container">
+        <div class="checkout-form-container">
+          <div class="checkout-steps">
+            <div class="checkout-step active" data-step="shipping">Shipping</div>
+            <div class="checkout-step" data-step="payment">Payment</div>
+            <div class="checkout-step" data-step="review">Review</div>
+          </div>
+          
+          <div class="step-content active" id="shipping-step">
+            <form id="shipping-form">
+              <h2 class="mb-4">Shipping Information</h2>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input type="text" id="firstName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input type="text" id="lastName" class="form-input" required>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" class="form-input" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" id="phone" class="form-input" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" id="address" class="form-input" required>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" id="city" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="state" class="form-label">State/Province</label>
+                  <input type="text" id="state" class="form-input" required>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="postalCode" class="form-label">Postal Code</label>
+                  <input type="text" id="postalCode" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="country" class="form-label">Country</label>
+                  <select id="country" class="form-input" required>
+                    <option value="">Select a country</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="checkout-actions">
+                <a href="cart.html" class="btn btn-outline">Back to Cart</a>
+                <button type="button" class="btn btn-primary" id="shipping-next-btn">Continue to Payment</button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="step-content" id="payment-step">
+            <form id="payment-form">
+              <h2 class="mb-4">Payment Method</h2>
+              
+              <div class="payment-methods">
+                <div class="payment-method active">
+                  <input type="radio" name="paymentMethod" id="creditCard" class="payment-method-radio" checked>
+                  <div class="payment-method-info">
+                    <div class="payment-method-title">Credit Card</div>
+                    <div class="payment-method-description">Pay with Visa, Mastercard, or American Express</div>
+                  </div>
+                  <div class="payment-method-icons">
+                    <span class="payment-method-icon visa"></span>
+                    <span class="payment-method-icon mastercard"></span>
+                    <span class="payment-method-icon amex"></span>
+                  </div>
+                </div>
+                
+                <div class="payment-method">
+                  <input type="radio" name="paymentMethod" id="paypal" class="payment-method-radio">
+                  <div class="payment-method-info">
+                    <div class="payment-method-title">PayPal</div>
+                    <div class="payment-method-description">Pay using your PayPal account</div>
+                  </div>
+                  <div class="payment-method-icons">
+                    <span class="payment-method-icon paypal"></span>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="credit-card-form">
+                <div class="form-group">
+                  <label for="cardNumber" class="form-label">Card Number</label>
+                  <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" required>
+                </div>
+                
+                <div class="form-row-3">
+                  <div class="form-group">
+                    <label for="cardName" class="form-label">Name on Card</label>
+                    <input type="text" id="cardName" class="form-input" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="expiry" class="form-label">Expiry Date</label>
+                    <input type="text" id="expiry" class="form-input" placeholder="MM/YY" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="text" id="cvv" class="form-input" placeholder="123" required>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="checkout-actions">
+                <button type="button" class="btn btn-outline" id="payment-back-btn">Back to Shipping</button>
+                <button type="button" class="btn btn-primary" id="payment-next-btn">Review Order</button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="step-content" id="review-step">
+            <h2 class="mb-4">Review Your Order</h2>
+            
+            <div class="review-sections">
+              <div class="review-section mb-4">
+                <h3 class="mb-2">Shipping Information</h3>
+                <div class="review-section-content" id="review-shipping">
+                  <!-- Will be populated dynamically -->
+                </div>
+                <button type="button" class="btn-link" data-step="shipping">Edit</button>
+              </div>
+              
+              <div class="review-section mb-4">
+                <h3 class="mb-2">Payment Method</h3>
+                <div class="review-section-content" id="review-payment">
+                  <!-- Will be populated dynamically -->
+                </div>
+                <button type="button" class="btn-link" data-step="payment">Edit</button>
+              </div>
+              
+              <div class="review-section mb-4">
+                <h3 class="mb-2">Order Items</h3>
+                <div class="review-section-content order-summary-items" id="review-items">
+                  <!-- Will be populated dynamically -->
+                </div>
+              </div>
+            </div>
+            
+            <div class="checkout-actions">
+              <button type="button" class="btn btn-outline" id="review-back-btn">Back to Payment</button>
+              <button type="button" class="btn btn-primary" id="place-order-btn">Place Order</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="checkout-summary">
+          <h3 class="order-summary-title">Order Summary</h3>
+          
+          <div class="order-summary-items" id="order-summary-items">
+            <!-- Will be populated dynamically -->
+          </div>
+          
+          <div class="order-summary-row">
+            <span class="order-summary-label">Subtotal</span>
+            <span class="order-summary-value" id="order-subtotal">$0.00</span>
+          </div>
+          
+          <div class="order-summary-row">
+            <span class="order-summary-label">Tax (10%)</span>
+            <span class="order-summary-value" id="order-tax">$0.00</span>
+          </div>
+          
+          <div class="order-summary-row">
+            <span class="order-summary-label">Shipping</span>
+            <span class="order-summary-value" id="order-shipping">$0.00</span>
+          </div>
+          
+          <div class="order-summary-row order-summary-total">
+            <span>Total</span>
+            <span id="order-total">$0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+          <p>Premium quality products for your everyday needs.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="products.html?category=electronics">Electronics</a></li>
+              <li><a href="products.html?category=fashion">Fashion</a></li>
+              <li><a href="products.html?category=home">Home</a></li>
+              <li><a href="products.html?category=beauty">Beauty</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="shipping.html">Shipping & Returns</a></li>
+              <li><a href="warranty.html">Warranty</a></li>
+              <li><a href="payment.html">Payment Methods</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Premium Store. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/components/header.js"></script>
+  <script src="../js/components/cart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeHeader();
+      
+      // Populate order summary
+      loadOrderSummary();
+      
+      // Handle checkout steps
+      initCheckoutSteps();
+      
+      // Handle payment methods
+      initPaymentMethods();
+    });
+    
+    function loadOrderSummary() {
+      const orderItemsContainer = document.getElementById('order-summary-items');
+      const orderSubtotalElement = document.getElementById('order-subtotal');
+      const orderTaxElement = document.getElementById('order-tax');
+      const orderShippingElement = document.getElementById('order-shipping');
+      const orderTotalElement = document.getElementById('order-total');
+      
+      if (!orderItemsContainer) return;
+      
+      // Clear container
+      orderItemsContainer.innerHTML = '';
+      
+      // Check if cart is empty
+      if (cart.length === 0) {
+        window.location.href = 'cart.html';
+        return;
+      }
+      
+      // Add order items
+      cart.forEach(item => {
+        const orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+        
+        orderItem.innerHTML = `
+          <div class="order-item-image">
+            <img src="${item.image}" alt="${item.title}" loading="lazy">
+          </div>
+          <div class="order-item-details">
+            <div class="order-item-title">${item.title}</div>
+            <div class="order-item-price">${formatPrice(item.price)}</div>
+            <div class="order-item-quantity">Qty: ${item.quantity}</div>
+          </div>
+        `;
+        
+        orderItemsContainer.appendChild(orderItem);
+      });
+      
+      // Calculate totals
+      const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+      const tax = subtotal * 0.1;
+      const shipping = subtotal > 100 ? 0 : 10;
+      const total = subtotal + tax + shipping;
+      
+      // Update elements
+      if (orderSubtotalElement) orderSubtotalElement.textContent = formatPrice(subtotal);
+      if (orderTaxElement) orderTaxElement.textContent = formatPrice(tax);
+      if (orderShippingElement) orderShippingElement.textContent = shipping === 0 ? 'Free' : formatPrice(shipping);
+      if (orderTotalElement) orderTotalElement.textContent = formatPrice(total);
+    }
+    
+    function initCheckoutSteps() {
+      const steps = document.querySelectorAll('.checkout-step');
+      const stepContents = document.querySelectorAll('.step-content');
+      const shippingNextBtn = document.getElementById('shipping-next-btn');
+      const paymentBackBtn = document.getElementById('payment-back-btn');
+      const paymentNextBtn = document.getElementById('payment-next-btn');
+      const reviewBackBtn = document.getElementById('review-back-btn');
+      const placeOrderBtn = document.getElementById('place-order-btn');
+      
+      // Go to next step
+      if (shippingNextBtn) {
+        shippingNextBtn.addEventListener('click', function() {
+          goToStep('payment');
+        });
+      }
+      
+      // Go back to shipping step
+      if (paymentBackBtn) {
+        paymentBackBtn.addEventListener('click', function() {
+          goToStep('shipping');
+        });
+      }
+      
+      // Go to review step
+      if (paymentNextBtn) {
+        paymentNextBtn.addEventListener('click', function() {
+          updateReviewStep();
+          goToStep('review');
+        });
+      }
+      
+      // Go back to payment step
+      if (reviewBackBtn) {
+        reviewBackBtn.addEventListener('click', function() {
+          goToStep('payment');
+        });
+      }
+      
+      // Handle edit buttons in review step
+      const editButtons = document.querySelectorAll('.btn-link[data-step]');
+      editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const step = this.getAttribute('data-step');
+          goToStep(step);
+        });
+      });
+      
+      // Place order
+      if (placeOrderBtn) {
+        placeOrderBtn.addEventListener('click', function() {
+          // Simulate order placement
+          this.disabled = true;
+          this.textContent = 'Processing...';
+          
+          setTimeout(() => {
+            // Clear cart
+            clearCart();
+            
+            // Redirect to confirmation page
+            window.location.href = 'thank-you.html';
+          }, 2000);
+        });
+      }
+      
+      function goToStep(stepId) {
+        // Update steps
+        steps.forEach(step => {
+          if (step.getAttribute('data-step') === stepId) {
+            step.classList.add('active');
+          } else {
+            step.classList.remove('active');
+            
+            // Add completed class to previous steps
+            if (stepId === 'payment' && step.getAttribute('data-step') === 'shipping') {
+              step.classList.add('completed');
+            } else if (stepId === 'review') {
+              if (step.getAttribute('data-step') === 'shipping' || step.getAttribute('data-step') === 'payment') {
+                step.classList.add('completed');
+              }
+            } else {
+              step.classList.remove('completed');
+            }
+          }
+        });
+        
+        // Show step content
+        stepContents.forEach(content => {
+          if (content.id === `${stepId}-step`) {
+            content.classList.add('active');
+          } else {
+            content.classList.remove('active');
+          }
+        });
+      }
+      
+      function updateReviewStep() {
+        // Update shipping information
+        const shippingInfo = document.getElementById('review-shipping');
+        if (shippingInfo) {
+          const firstName = document.getElementById('firstName').value;
+          const lastName = document.getElementById('lastName').value;
+          const address = document.getElementById('address').value;
+          const city = document.getElementById('city').value;
+          const state = document.getElementById('state').value;
+          const postalCode = document.getElementById('postalCode').value;
+          const country = document.getElementById('country').value;
+          
+          shippingInfo.innerHTML = `
+            <p>${firstName} ${lastName}</p>
+            <p>${address}</p>
+            <p>${city}, ${state} ${postalCode}</p>
+            <p>${country}</p>
+          `;
+        }
+        
+        // Update payment information
+        const paymentInfo = document.getElementById('review-payment');
+        if (paymentInfo) {
+          const creditCardRadio = document.getElementById('creditCard');
+          const paypalRadio = document.getElementById('paypal');
+          
+          if (creditCardRadio.checked) {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const lastFour = cardNumber.slice(-4).padStart(cardNumber.length, '*');
+            
+            paymentInfo.innerHTML = `
+              <p>Credit Card</p>
+              <p>${lastFour}</p>
+            `;
+          } else if (paypalRadio.checked) {
+            paymentInfo.innerHTML = `
+              <p>PayPal</p>
+            `;
+          }
+        }
+        
+        // Update order items
+        const reviewItems = document.getElementById('review-items');
+        if (reviewItems) {
+          reviewItems.innerHTML = '';
+          
+          cart.forEach(item => {
+            const orderItem = document.createElement('div');
+            orderItem.className = 'order-item';
+            
+            orderItem.innerHTML = `
+              <div class="order-item-image">
+                <img src="${item.image}" alt="${item.title}" loading="lazy">
+              </div>
+              <div class="order-item-details">
+                <div class="order-item-title">${item.title}</div>
+                <div class="order-item-price">${formatPrice(item.price)}</div>
+                <div class="order-item-quantity">Qty: ${item.quantity}</div>
+              </div>
+            `;
+            
+            reviewItems.appendChild(orderItem);
+          });
+        }
+      }
+    }
+    
+    function initPaymentMethods() {
+      const paymentMethods = document.querySelectorAll('.payment-method');
+      
+      paymentMethods.forEach(method => {
+        method.addEventListener('click', function() {
+          // Update radio button
+          const radio = this.querySelector('input[type="radio"]');
+          radio.checked = true;
+          
+          // Update active class
+          paymentMethods.forEach(m => {
+            m.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          // Show/hide credit card form
+          const creditCardForm = document.getElementById('credit-card-form');
+          if (creditCardForm) {
+            if (radio.id === 'creditCard') {
+              creditCardForm.style.display = 'block';
+            } else {
+              creditCardForm.style.display = 'none';
+            }
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>

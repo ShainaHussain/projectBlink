@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse our collection of premium products across various categories. Find the perfect items for you.">
+  <meta name="keywords" content="products, shop, categories, electronics, fashion, home, beauty">
+  <meta property="og:title" content="Products | Premium Store">
+  <meta property="og:description" content="Browse our collection of premium products across various categories.">
+  <meta property="og:image" content="https://images.pexels.com/photos/5872348/pexels-photo-5872348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+  <meta property="og:url" content="https://premium-store.com/products">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <title>Products | Premium Store</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/components/products.css">
+  <link rel="canonical" href="https://premium-store.com/products">
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container header-container">
+      <div class="header-logo">
+        <a href="../index.html" aria-label="Premium Store Home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>Premium Store</span>
+        </a>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html" class="active">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" id="search-toggle" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <a href="cart.html" class="btn-icon cart-icon" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-overlay" id="search-overlay">
+      <div class="container">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search for products..." aria-label="Search for products">
+          <button class="btn-icon" id="search-close" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="header-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+        </div>
+        <button class="btn-icon" id="mobile-menu-close" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html" class="active">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="products-page">
+    <div class="container">
+      <div class="products-header">
+        <h1 class="page-title">Our Products</h1>
+        <p class="page-description">Browse our collection of premium quality products.</p>
+      </div>
+      
+      <div class="products-layout">
+        <aside class="products-sidebar">
+          <div class="filter-group">
+            <h3>Categories</h3>
+            <select id="category-filter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home">Home</option>
+              <option value="beauty">Beauty</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <h3>Price Range</h3>
+            <div class="price-slider">
+              <input type="range" id="price-range" min="0" max="500" step="10" value="500">
+              <output id="price-output">$500</output>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <h3>Sort By</h3>
+            <select id="sort-select" class="filter-select">
+              <option value="default">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Customer Rating</option>
+              <option value="newest">Newest First</option>
+            </select>
+          </div>
+        </aside>
+        
+        <div class="products-main">
+          <div class="products-grid" id="products-container">
+            <!-- Products will be loaded dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+          <p>Premium quality products for your everyday needs.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="products.html?category=electronics">Electronics</a></li>
+              <li><a href="products.html?category=fashion">Fashion</a></li>
+              <li><a href="products.html?category=home">Home</a></li>
+              <li><a href="products.html?category=beauty">Beauty</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="shipping.html">Shipping & Returns</a></li>
+              <li><a href="warranty.html">Warranty</a></li>
+              <li><a href="payment.html">Payment Methods</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Premium Store. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/components/header.js"></script>
+  <script src="../js/components/cart.js"></script>
+  <script src="../js/components/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeHeader();
+      loadProductsPage();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View detailed information about our premium products.">
+  <meta name="keywords" content="product, details, features, specifications">
+  <meta property="og:title" content="Product Details | Premium Store">
+  <meta property="og:description" content="View detailed information about our premium products.">
+  <meta property="og:image" content="https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+  <meta property="og:url" content="https://premium-store.com/product-detail">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <title>Product Detail | Premium Store</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/components/products.css">
+  <script type="application/ld+json" id="product-schema">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Product Name",
+      "image": "https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "description": "Product description goes here.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Premium Store"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://premium-store.com/product-detail",
+        "priceCurrency": "USD",
+        "price": "99.99",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "100"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container header-container">
+      <div class="header-logo">
+        <a href="../index.html" aria-label="Premium Store Home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>Premium Store</span>
+        </a>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html" class="active">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" id="search-toggle" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <a href="cart.html" class="btn-icon cart-icon" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-overlay" id="search-overlay">
+      <div class="container">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search for products..." aria-label="Search for products">
+          <button class="btn-icon" id="search-close" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="header-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+        </div>
+        <button class="btn-icon" id="mobile-menu-close" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html" class="active">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="product-detail">
+    <div class="container">
+      <div class="product-detail-container">
+        <div class="product-gallery">
+          <div class="main-image">
+            <img id="main-image" src="" alt="Product Image">
+          </div>
+          <div class="gallery-thumbnails" id="gallery-thumbnails">
+            <!-- Thumbnails will be loaded dynamically -->
+          </div>
+        </div>
+        
+        <div class="product-info-detail">
+          <h1 id="product-title">Product Title</h1>
+          
+          <div class="product-meta">
+            <div class="product-rating">
+              <div class="rating-stars" id="product-rating"></div>
+              <span class="rating-count" id="product-rating-count">(0 reviews)</span>
+            </div>
+            <div class="product-category-label">Category: <span id="product-category">Category</span></div>
+          </div>
+          
+          <div class="product-pricing mb-4">
+            <span class="current-price" id="product-price">$0.00</span>
+            <span class="original-price" id="product-original-price">$0.00</span>
+            <span class="discount-percentage" id="product-discount">-0%</span>
+          </div>
+          
+          <div class="product-description mb-4" id="product-description">
+            Product description will appear here.
+          </div>
+          
+          <div class="product-variations">
+            <div class="variation colors">
+              <h3 class="variation-title">Color</h3>
+              <div class="variation-options" id="color-variations">
+                <!-- Color options will be loaded dynamically -->
+              </div>
+            </div>
+            
+            <div class="variation sizes">
+              <h3 class="variation-title">Size</h3>
+              <div class="variation-options">
+                <div class="variation-option">S</div>
+                <div class="variation-option active">M</div>
+                <div class="variation-option">L</div>
+                <div class="variation-option">XL</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-quantity">
+            <span class="quantity-label">Quantity</span>
+            <div class="quantity-input">
+              <button class="quantity-btn">-</button>
+              <input type="text" id="quantity" class="quantity-number" value="1" readonly>
+              <button class="quantity-btn">+</button>
+            </div>
+          </div>
+          
+          <button class="btn btn-primary add-to-cart-detail" id="add-to-cart-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            Add to Cart
+          </button>
+          
+          <button class="btn btn-outline mt-2 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            Add to Wishlist
+          </button>
+          
+          <div class="product-meta-info">
+            <div class="meta-item">
+              <span class="meta-label">Availability:</span>
+              <span class="meta-value" id="product-availability">In Stock</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">SKU:</span>
+              <span class="meta-value" id="product-sku">SKU-00000</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Shipping:</span>
+              <span class="meta-value">Free shipping on orders over $100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="product-tabs">
+        <div class="tabs-header">
+          <div class="tab-item active" data-tab="description">Description</div>
+          <div class="tab-item" data-tab="specifications">Specifications</div>
+          <div class="tab-item" data-tab="reviews">Reviews</div>
+        </div>
+        
+        <div class="tab-content active" id="description">
+          <p>Product descriptions will be loaded dynamically from the product data.</p>
+        </div>
+        
+        <div class="tab-content" id="specifications">
+          <div class="specifications-table">
+            <div class="spec-row">
+              <div class="spec-label">Dimensions</div>
+              <div class="spec-value">200 x 150 x 50 mm</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">Weight</div>
+              <div class="spec-value">500g</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">Materials</div>
+              <div class="spec-value">Premium quality materials</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">Warranty</div>
+              <div class="spec-value">1 year manufacturer warranty</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-content" id="reviews">
+          <div class="reviews-summary">
+            <div class="average-rating">
+              <div class="rating-number">4.8</div>
+              <div class="rating-stars">★★★★★</div>
+              <div class="rating-count">Based on 100 reviews</div>
+            </div>
+            <div class="rating-bars">
+              <div class="rating-bar">
+                <span class="rating-level">5 ★</span>
+                <div class="bar-container">
+                  <div class="bar" style="width: 80%;"></div>
+                </div>
+                <span class="rating-percent">80%</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-level">4 ★</span>
+                <div class="bar-container">
+                  <div class="bar" style="width: 15%;"></div>
+                </div>
+                <span class="rating-percent">15%</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-level">3 ★</span>
+                <div class="bar-container">
+                  <div class="bar" style="width: 3%;"></div>
+                </div>
+                <span class="rating-percent">3%</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-level">2 ★</span>
+                <div class="bar-container">
+                  <div class="bar" style="width: 1%;"></div>
+                </div>
+                <span class="rating-percent">1%</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-level">1 ★</span>
+                <div class="bar-container">
+                  <div class="bar" style="width: 1%;"></div>
+                </div>
+                <span class="rating-percent">1%</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="reviews-list">
+            <div class="review-item">
+              <div class="review-header">
+                <div class="review-rating">★★★★★</div>
+                <div class="review-author">John D.</div>
+                <div class="review-date">October 15, 2025</div>
+              </div>
+              <h4 class="review-title">Excellent product!</h4>
+              <p class="review-content">
+                This product exceeded my expectations. The quality is outstanding and it works perfectly.
+                I would definitely recommend it to anyone looking for a premium solution.
+              </p>
+            </div>
+            
+            <div class="review-item">
+              <div class="review-header">
+                <div class="review-rating">★★★★☆</div>
+                <div class="review-author">Sarah M.</div>
+                <div class="review-date">October 10, 2025</div>
+              </div>
+              <h4 class="review-title">Great product with minor issues</h4>
+              <p class="review-content">
+                Overall, I'm very satisfied with this product. It does what it promises and the quality
+                is good. The only reason I'm giving it 4 stars is because the setup took a bit longer than
+                expected. Once set up, it works perfectly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <section class="related-products">
+        <h2 class="section-title">You May Also Like</h2>
+        <div class="products-grid" id="related-products">
+          <!-- Related products will be loaded dynamically -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+          <p>Premium quality products for your everyday needs.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="products.html?category=electronics">Electronics</a></li>
+              <li><a href="products.html?category=fashion">Fashion</a></li>
+              <li><a href="products.html?category=home">Home</a></li>
+              <li><a href="products.html?category=beauty">Beauty</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="shipping.html">Shipping & Returns</a></li>
+              <li><a href="warranty.html">Warranty</a></li>
+              <li><a href="payment.html">Payment Methods</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Premium Store. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/components/header.js"></script>
+  <script src="../js/components/cart.js"></script>
+  <script src="../js/components/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeHeader();
+      loadProductDetailPage();
+      
+      // Update Schema.org JSON-LD data based on product
+      const productId = parseInt(getUrlParameter('id'));
+      if (productId) {
+        const product = products.find(p => p.id === productId);
+        if (product) {
+          const schema = document.getElementById('product-schema');
+          const schemaData = {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": product.title,
+            "image": product.image,
+            "description": product.description,
+            "brand": {
+              "@type": "Brand",
+              "name": "Premium Store"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": window.location.href,
+              "priceCurrency": "USD",
+              "price": product.price.toFixed(2),
+              "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": product.rating.toFixed(1),
+              "reviewCount": product.ratingCount.toString()
+            }
+          };
+          schema.textContent = JSON.stringify(schemaData);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

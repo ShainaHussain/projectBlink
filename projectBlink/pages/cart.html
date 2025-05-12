@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View and manage items in your shopping cart.">
+  <meta name="keywords" content="cart, shopping, checkout, order">
+  <meta property="og:title" content="Shopping Cart | Premium Store">
+  <meta property="og:description" content="View and manage items in your shopping cart.">
+  <meta property="og:image" content="https://images.pexels.com/photos/5872348/pexels-photo-5872348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+  <meta property="og:url" content="https://premium-store.com/cart">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <title>Shopping Cart | Premium Store</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/components/products.css">
+  <style>
+    /* Cart Page Styles */
+    .cart-page {
+      padding-top: 120px;
+      padding-bottom: var(--space-6);
+    }
+    
+    .cart-header {
+      margin-bottom: var(--space-5);
+    }
+    
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: var(--space-4);
+    }
+    
+    .cart-table th {
+      padding: var(--space-3);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+      font-weight: 500;
+      color: var(--color-text-light);
+    }
+    
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 2fr 1fr 1fr auto;
+      gap: var(--space-4);
+      align-items: center;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--border-radius-sm);
+      overflow: hidden;
+    }
+    
+    .cart-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .cart-item-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: var(--space-1);
+    }
+    
+    .cart-item-price {
+      color: var(--color-text-light);
+    }
+    
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+    }
+    
+    .cart-item-total {
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+    
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: var(--color-text-lighter);
+      cursor: pointer;
+      transition: var(--transition);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .cart-item-remove:hover {
+      color: var(--color-error);
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    
+    .empty-cart-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+    }
+    
+    .empty-cart-message h2 {
+      margin-bottom: var(--space-3);
+    }
+    
+    .empty-cart-message p {
+      margin-bottom: var(--space-4);
+      color: var(--color-text-light);
+    }
+    
+    .cart-summary {
+      width: 100%;
+      max-width: 400px;
+      margin-left: auto;
+      background-color: var(--color-background-alt);
+      padding: var(--space-4);
+      border-radius: var(--border-radius-md);
+    }
+    
+    .cart-summary-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-3);
+    }
+    
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+    
+    .cart-summary-label {
+      color: var(--color-text-light);
+    }
+    
+    .cart-summary-total {
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .cart-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-4);
+    }
+    
+    @media (max-width: 768px) {
+      .cart-item {
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: auto auto auto;
+        gap: var(--space-2);
+      }
+      
+      .cart-item-image {
+        width: 60px;
+        height: 60px;
+        grid-row: span 2;
+      }
+      
+      .cart-item-details {
+        grid-column: 2;
+      }
+      
+      .cart-item-quantity {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      
+      .cart-item-total {
+        grid-column: 1 / span 2;
+        grid-row: 3;
+        padding-top: var(--space-2);
+      }
+      
+      .cart-item-remove {
+        position: absolute;
+        top: var(--space-2);
+        right: var(--space-2);
+      }
+      
+      .cart-summary {
+        max-width: 100%;
+        margin-top: var(--space-4);
+      }
+      
+      .cart-actions {
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      
+      .cart-actions button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container header-container">
+      <div class="header-logo">
+        <a href="../index.html" aria-label="Premium Store Home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>Premium Store</span>
+        </a>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" id="search-toggle" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <a href="cart.html" class="btn-icon cart-icon" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-overlay" id="search-overlay">
+      <div class="container">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search for products..." aria-label="Search for products">
+          <button class="btn-icon" id="search-close" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="header-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+        </div>
+        <button class="btn-icon" id="mobile-menu-close" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cart-page">
+    <div class="container">
+      <div class="cart-header">
+        <h1 class="page-title">Shopping Cart</h1>
+      </div>
+      
+      <div id="empty-cart-message" class="empty-cart-message" style="display: none;">
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added any products to your cart yet.</p>
+        <a href="products.html" class="btn btn-primary">Start Shopping</a>
+      </div>
+      
+      <div id="cart-container">
+        <div id="cart-items">
+          <!-- Cart items will be loaded dynamically -->
+        </div>
+        
+        <div class="cart-summary">
+          <h3 class="cart-summary-title">Order Summary</h3>
+          
+          <div class="cart-summary-row">
+            <span class="cart-summary-label">Subtotal</span>
+            <span class="cart-summary-value" id="cart-subtotal">$0.00</span>
+          </div>
+          
+          <div class="cart-summary-row">
+            <span class="cart-summary-label">Tax (10%)</span>
+            <span class="cart-summary-value" id="cart-tax">$0.00</span>
+          </div>
+          
+          <div class="cart-summary-row">
+            <span class="cart-summary-label">Shipping</span>
+            <span class="cart-summary-value" id="cart-shipping">$0.00</span>
+          </div>
+          
+          <div class="cart-summary-row cart-summary-total">
+            <span>Total</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+        </div>
+        
+        <div class="cart-actions" id="cart-actions">
+          <button class="btn btn-outline" id="clear-cart">Clear Cart</button>
+          <button class="btn btn-primary" id="checkout-button">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Premium Store</span>
+          </a>
+          <p>Premium quality products for your everyday needs.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="products.html?category=electronics">Electronics</a></li>
+              <li><a href="products.html?category=fashion">Fashion</a></li>
+              <li><a href="products.html?category=home">Home</a></li>
+              <li><a href="products.html?category=beauty">Beauty</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="shipping.html">Shipping & Returns</a></li>
+              <li><a href="warranty.html">Warranty</a></li>
+              <li><a href="payment.html">Payment Methods</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Premium Store. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/components/header.js"></script>
+  <script src="../js/components/cart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeHeader();
+      loadCartPage();
+    });
+  </script>
+</body>
+</html>
